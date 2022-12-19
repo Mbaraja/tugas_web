@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.84.0">
+  <title>Bootstrap v5.0</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+
+
+
+  <!-- Bootstrap core CSS -->
+  <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"
+    integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column bg-dark">
+    <header class="mb-auto">
+      <div>
+        <h3 class="float-md-start mb-0 text-white">bYflix</h3>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+          <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+          <a class="nav-link" href="#">Film</a>
+          <a class="nav-link" href="#">Hubungi</a>
+        </nav>
+      </div>
+    </header>
+    </div>
+
+  <main>
+
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Pilih Movie</h1>
+          <p class="lead text-muted">bYflix menyediakan berbagai macam Film</p>
+          <p class="lead text-anchor">Pilih dan Sewa film dibawah ini</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="isi" >
+          
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="text-muted py-5">
+    <div class="container">
+      <p class="float-end mb-1">
+        <a href="#">Back to top</a>
+      </p>
+      <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+      <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
+          href="../getting-started/introduction/">getting started guide</a>.</p>
+    </div>
+  </footer>
+
+
+  <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $.ajax({
+        type: "get",
+        url: "https://api.themoviedb.org/3/discover/movie?api_key=a5e45412f8d502f1da7a427811ef8d1b&language=id-ID&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate",
+        dataType: "JSON",
+        success: function (response) {
+          // console.log(response)
+          for (let i = 0; i < response.results.length; i++) {
+            console.log(response.results[i])
+            $("#isi").append(`<div class="col">
+            <div class="card shadow-sm">
+              <img class="bd-placeholder-img card-img-top" width="100%" height="auto" src="https://image.tmdb.org/t/p/w1280${response.results[i].poster_path}"/>
+
+              <div class="card-body">
+                <strong class="card-text">${response.results[i].title}</strong>
+                <p class="card-text">${response.results[i].overview}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-success">Pilih</button>
+                  </div>
+                  <small class="text-muted">${response.results[i].vote_average}</small>
+                </div>
+              </div>
+            </div>
+          </div>`);
+            
+          }
+        }
+      });
+    });
+  </script>
+
+
+</body>
+
+</html>
